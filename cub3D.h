@@ -58,6 +58,14 @@ typedef struct window
     t_data      img;
 }				t_window;
 
+typedef struct texture
+{
+    int         width;
+    int         height;
+    int         color;
+    t_data      data;
+}				t_texture;
+
 typedef struct t_utils
 {
 	int no;
@@ -71,6 +79,10 @@ typedef struct t_utils
 
 typedef struct map
 {
+    t_texture     no_texture;
+    t_texture     so_texture;
+    t_texture     we_texture;
+    t_texture     ea_texture;
     int        direc;
     double     move_step;
     double     player_x;

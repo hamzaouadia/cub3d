@@ -15,11 +15,26 @@
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
 	char	*dst;
-    if (x < 1800 && y < 1200)
+    if (x < 1200 && y < 1000)
     {
         dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
         *(unsigned int*)dst = color;
     }
+}
+
+int    get_color_w(t_texture *tex, double y, double x)
+{
+    char    *str;
+    int        colore;
+
+    // printf("x = %d\n", x);
+    // printf("y = %d\n", y);
+    if (y < 0 || y >= tex->height || x < 0 || x >= tex->width)
+        return (0);
+    str = tex->data.addr + ((int)(y) *tex->data.line_length)
+        + ((int)(x) *(tex->data.bits_per_pixel / 8));
+    colore = *(int *)str;
+    return (colore);
 }
 
 int	render(s_map *t)
@@ -31,9 +46,8 @@ int	render(s_map *t)
 	int j = 0;
 	int xcpy = 0;
 	int ycpy = 0;
-
-    if (t->g->img.img)
-        mlx_destroy_image(t->g->mlx, t->g->img.img);
+    // if (t->g->img.img)
+    //     mlx_destroy_image(t->g->mlx, t->g->img.img);
     t->g->img.img = mlx_new_image(t->g->mlx, t->g->w, t->g->h);
     t->g->img.addr = mlx_get_data_addr(t->g->img.img, &t->g->img.bits_per_pixel, &t->g->img.line_length, &t->g->img.endian);
 
@@ -60,6 +74,8 @@ int	render(s_map *t)
     double angle = 30.0;
     double pix_x = 0.0;
     double pix_y;
+    double x_texture = 0.0;
+    double y_texture = 0.0;
     while (angle >= -30.0)
     {
         y = t->player_y;
@@ -67,20 +83,28 @@ int	render(s_map *t)
         while (1)
         {
             // my_mlx_pixel_put(&t->g->img, x, y, 0x000000);
-            x += 1.0 * cos((angle + t->player_ang) * PI / 180.0);
+            x += 0.5 * cos((angle + t->player_ang) * PI / 180.0);
             if (t->real_map[(int)(y / t->g->block_size)][(int)(x / t->g->block_size)] == '1')
             {
                 side = 'e';
+                x_texture = (((y / t->g->block_size) - (int)(y / t->g->block_size))) * t->ea_texture.width;
                 if (x < t->player_x)
+                {
                     side = 'w';
+                    x_texture = (((y / t->g->block_size) - (int)(y / t->g->block_size))) * t->we_texture.width;
+                }
                 break ;
             }
-            y -= 1.0 * sin((angle + t->player_ang) * PI / 180.0);
+            y -= 0.5 * sin((angle + t->player_ang) * PI / 180.0);
             if (t->real_map[(int)(y / t->g->block_size)][(int)(x / t->g->block_size)] == '1')
-            {   
+            {
                 side = 'n';
+                x_texture = (((x / t->g->block_size) - (int)(x / t->g->block_size))) * t->no_texture.width;
                 if (y > t->player_y)
+                {
                     side = 's';
+                    x_texture = (((x / t->g->block_size) - (int)(x / t->g->block_size))) * t->so_texture.width;
+                }
                 break ;
             }
         }
@@ -90,22 +114,40 @@ int	render(s_map *t)
         wall_top = wall_top < 0.0 ? 0.0 : wall_top;
         double wall_down = t->g->h_half + (wall / 2);
         wall_down = wall_down > t->g->h ? t->g->h : wall_down;
+        y_texture = 0.0;
         pix_y = 0.0;
-        while (pix_y < t->g->h && pix_x < t->g->w)
+        while (pix_y <= t->g->h)
         {
-            if (pix_y < t->g->h_half && pix_y < wall_top)
+            
+            if (pix_y <= t->g->h / 2)
                 my_mlx_pixel_put(&t->g->img, pix_x, pix_y, t->c);
             else
                 my_mlx_pixel_put(&t->g->img, pix_x, pix_y, t->f);
+            pix_y += 1.0;
+        }
+        pix_y = wall_top;
+        while (pix_y <= wall_down)
+        {
             if (pix_y >= wall_top && pix_y <= wall_down && side == 'e')
-                my_mlx_pixel_put(&t->g->img, pix_x, pix_y, 0xDCDCDC);
+            {
+                my_mlx_pixel_put(&t->g->img, pix_x, pix_y, get_color_w(&t->ea_texture, y_texture, x_texture));
+                y_texture += (double)t->ea_texture.height / wall;
+            }
             if (pix_y >= wall_top && pix_y <= wall_down && side == 'w')
-                my_mlx_pixel_put(&t->g->img, pix_x, pix_y, 0x778899);
+            {
+                my_mlx_pixel_put(&t->g->img, pix_x, pix_y, get_color_w(&t->we_texture, y_texture, x_texture));
+                y_texture += (double)t->we_texture.height / wall;
+            }
             if (pix_y >= wall_top && pix_y <= wall_down && side == 'n')
-                my_mlx_pixel_put(&t->g->img, pix_x, pix_y, 0x4682B4);
+            {
+                my_mlx_pixel_put(&t->g->img, pix_x, pix_y, get_color_w(&t->no_texture, y_texture, x_texture));
+                y_texture += (double)t->no_texture.height / wall;
+            }
             if (pix_y >= wall_top && pix_y <= wall_down && side == 's')
-                my_mlx_pixel_put(&t->g->img, pix_x, pix_y, 0x1E90FF);
-        
+            {
+                my_mlx_pixel_put(&t->g->img, pix_x, pix_y, get_color_w(&t->so_texture, y_texture, x_texture));
+                y_texture += (double)t->so_texture.height / wall;
+            }
             pix_y += 1.0;
         }
         pix_x += 1.0;
@@ -183,9 +225,9 @@ int key_hook(int key_code, s_map *map)
 		exit(0);
 	}
     if (key_code == 124)
-        map->ang_direc = -5.0;
+        map->ang_direc = -8.0;
     if (key_code == 123)
-        map->ang_direc = +5.0;
+        map->ang_direc = +8.0;
     if (key_code == 13)
     {
         map->direc = 1;
@@ -261,11 +303,25 @@ int	main(int ac, char **av)
 		win.h_half = win.h / 2;
         win.dim_x = get_x(map.real_map);
         win.dim_y = get_y(map.real_map);
-		win.block_size = win.w / get_x(map.real_map);
+		win.block_size = 40;
+      
 		win.mlx = mlx_init();
-		win.win = mlx_new_window(win.mlx, win.w, win.h, "cub3D");
+        win.win = mlx_new_window(win.mlx, win.w, win.h, "cub3D");
         map.player_x = win.block_size * get_player_x(map.real_map) + (win.block_size / 2);
         map.player_y = win.block_size * get_player_y(map.real_map) + (win.block_size / 2);
+         
+        map.no_texture.data.img = mlx_xpm_file_to_image(win.mlx, "./maps/no.xpm", &map.no_texture.width, &map.no_texture.height);
+        map.no_texture.data.addr = mlx_get_data_addr(map.no_texture.data.img, &map.no_texture.data.bits_per_pixel, &map.no_texture.data.line_length, &map.no_texture.data.endian);
+       
+        map.so_texture.data.img = mlx_xpm_file_to_image(win.mlx, "./maps/so.xpm", &map.so_texture.width, &map.so_texture.height);
+        map.so_texture.data.addr = mlx_get_data_addr(map.so_texture.data.img, &map.so_texture.data.bits_per_pixel, &map.so_texture.data.line_length, &map.so_texture.data.endian);
+       
+        map.we_texture.data.img = mlx_xpm_file_to_image(win.mlx, "./maps/we.xpm", &map.we_texture.width, &map.we_texture.height);
+        map.we_texture.data.addr = mlx_get_data_addr(map.we_texture.data.img, &map.we_texture.data.bits_per_pixel, &map.we_texture.data.line_length, &map.we_texture.data.endian);
+       
+        map.ea_texture.data.img = mlx_xpm_file_to_image(win.mlx, "./maps/ea.xpm", &map.ea_texture.width, &map.ea_texture.height);
+        map.ea_texture.data.addr = mlx_get_data_addr(map.ea_texture.data.img, &map.ea_texture.data.bits_per_pixel, &map.ea_texture.data.line_length, &map.ea_texture.data.endian);
+       
         if (get_player_direction(map.real_map) == 'N')
             map.player_ang = 90.0;
         else if (get_player_direction(map.real_map) == 'E')
@@ -274,9 +330,7 @@ int	main(int ac, char **av)
             map.player_ang = 270.0;
         else if (get_player_direction(map.real_map) == 'W')
             map.player_ang = 180.0;
-        map.move_step = win.block_size / 5;
-        map.up_x = 2.0 * cos(map.player_ang * PI / 180);
-        map.up_y = 2.0 * sin(map.player_ang * PI / 180);
+        map.move_step = win.block_size / 4;
 		mlx_loop_hook(win.mlx,render, &map);
         mlx_hook(win.win, 2, 0, key_hook, &map);
         mlx_hook(win.win, 3, 0, key_release, &map);

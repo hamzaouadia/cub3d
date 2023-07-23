@@ -63,11 +63,11 @@ void	check_map_textures(s_map *map)
 	if (map->utils.no > 1 || map->utils.we > 1 || map->utils.so > 1
 		|| map->utils.ea > 1 || map->utils.cc > 1 || map->utils.ff > 1)
 		errors(10);
-	// if (open(map->no, O_RDONLY) < 0
+	// if (open(map->no, O_RDONLY) < 0)
 	// 	|| open(map->so, O_RDONLY) < 0
 	// 	|| open(map->ea, O_RDONLY) < 0
 	// 	|| open(map->we, O_RDONLY) < 0)
-	// 	errors(11);
+		// errors(11);
 }
 
 size_t zero_index(char *str)
