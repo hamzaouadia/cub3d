@@ -21,7 +21,7 @@
 /* -------- MAP -------- */
 
 # define BUFF_SIZE 256
-# define PI 3.14159265359
+# define PI 3.1415926535897932384626433832795
 # define WALL '1'
 # define EMPTY '0'
 
@@ -84,6 +84,7 @@ typedef struct map
     t_texture     we_texture;
     t_texture     ea_texture;
     int        direc;
+    double     shift;
     double     move_step;
     double     player_x;
     double     player_y;
