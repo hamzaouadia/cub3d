@@ -6,13 +6,13 @@
 /*   By: smounafi <smounafi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 12:47:14 by smounafi          #+#    #+#             */
-/*   Updated: 2023/06/21 12:53:13 by smounafi         ###   ########.fr       */
+/*   Updated: 2023/07/26 10:21:19 by smounafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
 
-int		char_pos(char *str, char c)
+int	char_pos(char *str, char c)
 {
 	int	i;
 
@@ -35,7 +35,7 @@ char	*path_extracter(char *str)
 	return (ft_substr(str, 0, char_pos(str, '\n')));
 }
 
-void	north_south_textures(char *str, s_map *map)
+void	north_south_textures(char *str, t_map *map)
 {
 	if (ft_strncmp(str, NORTH_TEXTURE, 3) == 0 && map->utils.no == 0)
 	{
@@ -51,7 +51,7 @@ void	north_south_textures(char *str, s_map *map)
 	}
 }
 
-void	east_west_textures(char *str, s_map *map)
+void	east_west_textures(char *str, t_map *map)
 {
 	if (ft_strncmp(str, WEST_TEXTURE, 3) == 0)
 	{
@@ -67,30 +67,30 @@ void	east_west_textures(char *str, s_map *map)
 	}
 }
 
-void	floor_ceiling_textures(char *str, s_map *map)
+void	floor_ceiling_textures(char *str, t_map *map)
 {
-	char	**rgb;
-
 	if (ft_strncmp(str, FLOOR, 2) == 0)
 	{
-		rgb = ft_split(path_extracter(str), ',');
-		if((ft_atoi(rgb[0]) >= BUFF_SIZE || ft_atoi(rgb[0]) < 0) 
-			|| (ft_atoi(rgb[1]) >= BUFF_SIZE || ft_atoi(rgb[1]) < 0 ) 
-				|| (ft_atoi(rgb[2]) >= BUFF_SIZE || ft_atoi(rgb[2]) < 0))
+		map->rgb = ft_split(path_extracter(str), ',');
+		if ((ft_atoi(map->rgb[0]) >= BUFF_SIZE || ft_atoi(map->rgb[0]) < 0)
+			|| (ft_atoi(map->rgb[1]) >= BUFF_SIZE || ft_atoi(map->rgb[1]) < 0)
+			|| (ft_atoi(map->rgb[2]) >= BUFF_SIZE || ft_atoi(map->rgb[2]) < 0))
 			errors_help(0);
-		map->f = (ft_atoi(rgb[0]) * 65536) + (ft_atoi(rgb[1]) * 256)
-			+ ft_atoi(rgb[2]);
-		(map->utils.ff++, map->utils.flag++);
+		map->f = (ft_atoi(map->rgb[0]) * 65536) + (ft_atoi(map->rgb[1]) * 256)
+			+ ft_atoi(map->rgb[2]);
+		map->utils.ff++;
+		map->utils.flag++;
 	}
 	if (ft_strncmp(str, CEILLING, 2) == 0)
 	{
-		rgb = ft_split(path_extracter(str), ',');
-		if((ft_atoi(rgb[0]) >= BUFF_SIZE || ft_atoi(rgb[0]) < 0) 
-			|| (ft_atoi(rgb[1]) >= BUFF_SIZE || ft_atoi(rgb[1]) < 0 ) 
-				|| (ft_atoi(rgb[2]) >= BUFF_SIZE || ft_atoi(rgb[2]) < 0))
+		map->rgb = ft_split(path_extracter(str), ',');
+		if ((ft_atoi(map->rgb[0]) >= BUFF_SIZE || ft_atoi(map->rgb[0]) < 0)
+			|| (ft_atoi(map->rgb[1]) >= BUFF_SIZE || ft_atoi(map->rgb[1]) < 0)
+			|| (ft_atoi(map->rgb[2]) >= BUFF_SIZE || ft_atoi(map->rgb[2]) < 0))
 			errors_help(0);
-		map->c = (ft_atoi(rgb[0]) * 65536) + (ft_atoi(rgb[1]) * 256)
-			+ ft_atoi(rgb[2]);
-		(map->utils.cc++,map->utils.flag++);
+		map->c = (ft_atoi(map->rgb[0]) * 65536) + (ft_atoi(map->rgb[1]) * 256)
+			+ ft_atoi(map->rgb[2]);
+		map->utils.cc++;
+		map->utils.flag++;
 	}
 }

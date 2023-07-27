@@ -6,13 +6,13 @@
 /*   By: smounafi <smounafi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 15:21:46 by smounafi          #+#    #+#             */
-/*   Updated: 2023/06/23 00:33:27 by smounafi         ###   ########.fr       */
+/*   Updated: 2023/07/26 10:21:19 by smounafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
 
-void	init_stuff(s_map *map)
+void	init_stuff(t_map *map)
 {
 	map->no = NULL;
 	map->so = NULL;
@@ -44,7 +44,7 @@ void	check_map_name(char *str)
 		errors(4);
 }
 
-int		is_a_space(char c)
+int	is_a_space(char c)
 {
 	int	i;
 
@@ -76,63 +76,7 @@ char	*get_map(char *arg, int fd)
 	return (str);
 }
 
-// size_t highest_len(char **str)
-// {
-// 	int i;
-// 	size_t len;
-// 	size_t len2;
-// 	i = 1;
-// 	len = ft_strlen(str[0]);
-// 	len2 = 0;
-// 	while(str[i])
-// 	{
-// 		if(ft_strlen(str[i]) > len)
-// 			len2 = ft_strlen(str[i]);
-// 		i++;
-// 	}
-// 	return(len2);
-// }
-
-// void fuel_map(char **str)
-// {
-// 	int i;
-// 	int j;
-// 	size_t l;
-// 	size_t k;
-// 	char *s;
-// 	i = 0;
-// 	j = 0;
-// 	k = 0;
-// 	l = 0;
-// 	while(str[i])
-// 	{
-// 		k = 0;
-// 		l = 0;
-// 		if(ft_strlen(str[i]) < highest_len(str))
-// 		{
-// 			j = highest_len(str) - ft_strlen(str[i]);
-// 			while(str[i][k])
-// 				k++;
-// 			s = malloc(sizeof(highest_len(str) + 1));
-// 			while(str[i][l])
-// 			{
-// 				s[l] = str[i][l];
-// 				printf("-> %c\n", s[l]);
-// 				l++;
-// 			}
-// 			while(k < highest_len(str))
-// 			{
-// 				s[k] = str[i][k];
-// 				k++;
-// 			}
-// 			s[k] = '\0';
-// 		}
-// 		i++;
-// 	}
-// 	//printf("s --> %s\n", s);
-// }
-
-char	*setup_map(char *str, s_map *map)
+char	*setup_map(char *str, t_map *map)
 {
 	int	i;
 
@@ -156,7 +100,6 @@ char	*setup_map(char *str, s_map *map)
 		str++;
 	(check_map_textures(map), check_map_content(str));
 	map->real_map = ft_split(str, '\n');
-	//fuel_map(map->real_map);
 	check_map_walls(map->real_map);
 	check_map_content_help(map->real_map);
 	return (str);

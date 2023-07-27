@@ -6,11 +6,11 @@
 /*   By: smounafi <smounafi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 19:14:05 by smounafi          #+#    #+#             */
-/*   Updated: 2023/06/21 12:35:50 by smounafi         ###   ########.fr       */
+/*   Updated: 2023/07/26 09:56:50 by smounafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"../cub3D.h"
+#include "../cub3D.h"
 
 void	errors(int i)
 {
@@ -41,7 +41,7 @@ void	errors(int i)
 	exit(1);
 }
 
-void errors_help(int i)
+void	errors_help(int i)
 {
 	if (i == 0)
 		printf("\033[1;31m🛑ERROR: color given not valid!\n");
