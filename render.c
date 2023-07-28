@@ -138,6 +138,7 @@ int	render(t_map *t)
 	ft_aim_cross(t);
 	ft_minimap(t);
 	mlx_put_image_to_window(t->g->mlx, t->g->win, t->g->img.img, 0, 0);
+	mlx_put_image_to_window(t->g->mlx, t->g->win, t->gun.data.img, t->g->w / 2 - 75, t->g->h - 150);
 	return (0);
 }
 

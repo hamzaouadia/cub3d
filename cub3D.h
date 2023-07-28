@@ -81,10 +81,13 @@ typedef struct t_utils
 
 typedef struct map
 {
+	t_texture		gun;
+	t_texture		gun_shot;
 	t_texture		no_texture;
 	t_texture		so_texture;
 	t_texture		we_texture;
 	t_texture		ea_texture;
+	int				shot;
 	int				direc;
 	int				direc_s;
 	double			shift;
