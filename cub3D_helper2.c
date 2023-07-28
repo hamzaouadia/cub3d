@@ -50,7 +50,7 @@ void	render_helper3(t_map *t)
 			render_3_helper(t);
 			break ;
 		}
-		t->y -= sin((t->angle + t->player_ang) * PI_R);
+		t->y += -sin((t->angle + t->player_ang) * PI_R);
 		if (t->real_map[(int)(t->y / t->g->block_size)][(int)(t->x
 				/ t->g->block_size)] == '1')
 		{
@@ -81,7 +81,8 @@ void	render_helper4(t_map *t)
 {
 	t->dist = sqrt(pow(fabs(t->x - t->player_x), 2.0) + pow(fabs(t->y
 					- t->player_y), 2.0));
-	t->wall = (t->g->block_size * 2 / (t->dist * cos((t->angle) * PI_R))) * t->g->h_half;
+	t->wall = (t->g->block_size * 2
+			/ (t->dist * cos((t->angle) * PI_R))) * t->g->h_half;
 	t->wall_top = t->g->h_half - (t->wall / 2.0);
 	t->wall_down = t->g->h_half + (t->wall / 2.0);
 	t->y_texture = 0.0;

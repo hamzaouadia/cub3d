@@ -51,6 +51,27 @@ void	init_map_struct(t_map *t)
 	t->y_texture = 0.0;
 }
 
+int	ft_check_radius(t_map *t, double player_x, double player_y)
+{
+	double	angle;
+	double	x;
+	double	y;
+
+	angle = 0.0;
+	x = 0.0;
+	y = 0.0;
+	while (angle <= 360)
+	{
+		x = 10.0 * cos(angle * PI_R) + player_x;
+		y = 10.0 * -sin(angle * PI_R) + player_y;
+		if (t->real_map[(int)y / t->g->block_size]
+			[(int)x / t->g->block_size] == '1')
+			return (0);
+		angle += 0.5;
+	}
+	return (1);
+}
+
 void	render_helper(t_map *t)
 {
 	t->g->img.img = mlx_new_image(t->g->mlx, t->g->w, t->g->h);
@@ -69,11 +90,11 @@ void	render_helper(t_map *t)
 	t->up_y = t->move_step * sin(t->player_ang * PI_R);
 	if (t->direc == 1)
 	{
-		if (t->real_map[(int)(t->player_y + (t->y_direc * t->sy * 10.0))
-			/ t->g->block_size][(int)t->player_x / t->g->block_size] != '1')
+		if (ft_check_radius(t, t->player_x, t->player_y
+				+ (t->y_direc * t->sy * 8.0)))
 			t->player_y += t->y_direc * t->up_y;
-		if (t->real_map[(int)t->player_y / t->g->block_size][(int)(t->player_x
-			+ (t->x_direc * t->sx * 10.0)) / t->g->block_size] != '1')
+		if (ft_check_radius(t, t->player_x
+				+ (t->x_direc * t->sx * 8.0), t->player_y))
 			t->player_x += t->x_direc * t->up_x;
 	}
 }
@@ -82,11 +103,11 @@ void	render_helper2(t_map *t)
 {
 	if (t->direc == 0)
 	{
-		if (t->real_map[(int)(t->player_y + (t->y_direc * t->sx * 10.0))
-			/ t->g->block_size][(int)t->player_x / t->g->block_size] != '1')
+		if (ft_check_radius(t, t->player_x,
+				t->player_y + (t->y_direc * t->sx * 8.0)))
 			t->player_y += t->y_direc * t->up_x;
-		if (t->real_map[(int)t->player_y / t->g->block_size][(int)(t->player_x
-			+ (t->x_direc * t->sy * 10.0)) / t->g->block_size] != '1')
+		if (ft_check_radius(t, t->player_x
+				+ (t->x_direc * t->sy * 8.0), t->player_y))
 			t->player_x += t->x_direc * t->up_y;
 	}
 }

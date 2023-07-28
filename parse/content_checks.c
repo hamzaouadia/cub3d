@@ -68,7 +68,7 @@ void	check_map_textures(t_map *map)
 		|| open(map->so, O_RDONLY) < 0
 		|| open(map->ea, O_RDONLY) < 0
 		|| open(map->we, O_RDONLY) < 0)
-	errors(11);
+		errors(11);
 }
 
 size_t	zero_index(char *str)
