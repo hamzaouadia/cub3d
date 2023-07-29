@@ -6,7 +6,7 @@
 /*   By: smounafi <smounafi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 19:14:05 by smounafi          #+#    #+#             */
-/*   Updated: 2023/07/26 09:56:50 by smounafi         ###   ########.fr       */
+/*   Updated: 2023/07/28 17:24:10 by smounafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,14 @@ void	errors_help(int i)
 	if (i == 0)
 		printf("\033[1;31m🛑ERROR: color given not valid!\n");
 	exit(1);
+}
+
+int	ft_strlenn(const char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s && s[i])
+		i++;
+	return (i);
 }

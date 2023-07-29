@@ -31,8 +31,10 @@ void	run_game(t_window *win)
 
 void	initialize_window(t_window *win, t_map *map)
 {
-	map->move_step = 8.0;
+	map->move_step = 5.0;
+	map->frame = 0;
 	initialize_textures(win, map);
+	gun_textures(map->gun, win);
 	set_player_angle(map);
 	mlx_loop_hook(win->mlx, render, map);
 	mlx_hook(win->win, 2, 0, key_hook, map);
@@ -49,8 +51,8 @@ void	setup_game(int ac, char **av)
 	(void)ac;
 	map.g = &win;
 	extracted_map = setup_map(get_map(av[1], 0), &map);
-	win.w = 1200;
-	win.h = 1000;
+	win.w = 1000;
+	win.h = 800;
 	win.h_half = win.h / 2;
 	win.dim_x = get_x(map.real_map);
 	win.dim_y = get_y(map.real_map);

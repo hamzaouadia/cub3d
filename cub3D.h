@@ -6,7 +6,7 @@
 /*   By: smounafi <smounafi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 15:22:29 by smounafi          #+#    #+#             */
-/*   Updated: 2023/07/26 10:26:39 by smounafi         ###   ########.fr       */
+/*   Updated: 2023/07/28 17:27:07 by smounafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,13 @@ typedef struct t_utils
 
 typedef struct map
 {
-	t_texture		gun;
-	t_texture		gun_shot;
+	t_texture		gun[48];
 	t_texture		no_texture;
 	t_texture		so_texture;
 	t_texture		we_texture;
 	t_texture		ea_texture;
 	int				shot;
+	int				frame;
 	int				direc;
 	int				direc_s;
 	double			shift;
@@ -148,7 +148,8 @@ void				floor_ceiling_textures(char *str, t_map *map);
 void				check_map_content(char *str);
 void				check_map_walls(char **str);
 void				check_map_textures(t_map *map);
-size_t				zero_index(char *str);
+int					zero_index(char *str);
+int					ft_strlenn(const char *s);
 int					is_a_space(char c);
 void				check_map_content_help(char **str);
 
@@ -187,4 +188,8 @@ void				initialize_textures_helper(t_window *win, t_map *map);
 void				initialize_textures(t_window *win, t_map *map);
 int					render(t_map *t);
 void				key_hook_helper(int key_code, t_map *map);
+int					ft_check_radius(t_map *t, double player_x, double player_y);
+void				ft_aim_cross(t_map *t);
+void				ft_minimap(t_map *t);
+void				gun_textures(t_texture *gun, t_window *mlx);
 #endif

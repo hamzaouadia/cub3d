@@ -6,7 +6,7 @@
 /*   By: smounafi <smounafi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 10:15:53 by smounafi          #+#    #+#             */
-/*   Updated: 2023/07/26 10:29:38 by smounafi         ###   ########.fr       */
+/*   Updated: 2023/07/28 17:20:17 by smounafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	key_hook(int key_code, t_map *map)
 {
 	key_hook_helper(key_code, map);
 	if (key_code == 49)
-		mlx_put_image_to_window(map->g->mlx, map->g->win, map->gun_shot.data.img, map->g->w / 2 - 75, map->g->h - 200);
+		map->shot = 1;
 	if (key_code == 1)
 	{
 		map->direc = 1;
@@ -90,12 +90,6 @@ void	initialize_textures_helper(t_window *win, t_map *map)
 			&map->so_texture.data.bits_per_pixel,
 			&map->so_texture.data.line_length,
 			&map->so_texture.data.endian);
-	map->gun_shot.data.img = mlx_xpm_file_to_image(win->mlx, "./maps/gun_shot.xpm",
-			&map->gun_shot.width, &map->gun_shot.height);
-	map->gun_shot.data.addr = mlx_get_data_addr(map->gun_shot.data.img,
-			&map->gun_shot.data.bits_per_pixel,
-			&map->gun_shot.data.line_length,
-			&map->gun_shot.data.endian);
 }
 
 void	initialize_textures(t_window *win, t_map *map)
@@ -113,10 +107,4 @@ void	initialize_textures(t_window *win, t_map *map)
 			&map->ea_texture.data.bits_per_pixel,
 			&map->ea_texture.data.line_length,
 			&map->ea_texture.data.endian);
-	map->gun.data.img = mlx_xpm_file_to_image(win->mlx, "./maps/gun.xpm",
-			&map->gun.width, &map->gun.height);
-	map->gun.data.addr = mlx_get_data_addr(map->gun.data.img,
-			&map->gun.data.bits_per_pixel,
-			&map->gun.data.line_length,
-			&map->gun.data.endian);
 }

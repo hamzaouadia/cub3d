@@ -6,7 +6,7 @@
 /*   By: smounafi <smounafi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 20:58:27 by smounafi          #+#    #+#             */
-/*   Updated: 2023/07/26 10:23:23 by smounafi         ###   ########.fr       */
+/*   Updated: 2023/07/28 17:18:52 by smounafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,18 +96,5 @@ void	render_helper(t_map *t)
 		if (ft_check_radius(t, t->player_x
 				+ (t->x_direc * t->sx * 8.0), t->player_y))
 			t->player_x += t->x_direc * t->up_x;
-	}
-}
-
-void	render_helper2(t_map *t)
-{
-	if (t->direc == 0)
-	{
-		if (ft_check_radius(t, t->player_x,
-				t->player_y + (t->y_direc * t->sx * 8.0)))
-			t->player_y += t->y_direc * t->up_x;
-		if (ft_check_radius(t, t->player_x
-				+ (t->x_direc * t->sy * 8.0), t->player_y))
-			t->player_x += t->x_direc * t->up_y;
 	}
 }

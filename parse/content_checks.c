@@ -6,7 +6,7 @@
 /*   By: smounafi <smounafi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 12:49:54 by smounafi          #+#    #+#             */
-/*   Updated: 2023/07/26 10:21:19 by smounafi         ###   ########.fr       */
+/*   Updated: 2023/07/28 17:16:27 by smounafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,11 @@ void	check_map_textures(t_map *map)
 		errors(11);
 }
 
-size_t	zero_index(char *str)
+int	zero_index(char *str)
 {
 	int	i;
 
-	i = ft_strlen(str);
+	i = ft_strlenn(str);
 	while (i > 0)
 	{
 		if (str[i] == '0')
@@ -94,8 +94,8 @@ void	check_map_content_help(char **str)
 	j = 0;
 	while (str[i])
 	{
-		if (str[i + 1] && (zero_index(str[i]) > ft_strlen(str[i - 1])
-				|| zero_index(str[i]) > ft_strlen(str[i + 1])))
+		if (str[i + 1] && (zero_index(str[i]) > ft_strlenn(str[i - 1])
+				|| zero_index(str[i]) > ft_strlenn(str[i + 1])))
 			errors(0);
 		j = 0;
 		while (str[i][j])

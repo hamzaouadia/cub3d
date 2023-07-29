@@ -6,7 +6,7 @@
 /*   By: smounafi <smounafi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 10:24:06 by smounafi          #+#    #+#             */
-/*   Updated: 2023/07/26 10:27:22 by smounafi         ###   ########.fr       */
+/*   Updated: 2023/07/28 17:24:41 by smounafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,49 +114,4 @@ void	ft_minimap(t_map *t)
 		t->y += 1.0;
 	}
 	ft_minimap_player(t);
-}
-
-int	render(t_map *t)
-{
-	init_map_struct(t);
-	render_helper(t);
-	render_helper2(t);
-	while (t->angle >= -30.0)
-	{
-		t->y = t->player_y;
-		t->x = t->player_x;
-		render_helper3(t);
-		render_helper4(t);
-		while (t->pix_y <= t->g->h)
-		{
-			my_mlx_pixel_put(&t->g->img, t->pix_x, t->pix_y, t->f);
-			t->pix_y += 1.0;
-		}
-		t->pix_x += 1.0;
-		t->angle -= 0.05;
-	}
-	ft_aim_cross(t);
-	ft_minimap(t);
-	mlx_put_image_to_window(t->g->mlx, t->g->win, t->g->img.img, 0, 0);
-	mlx_put_image_to_window(t->g->mlx, t->g->win, t->gun.data.img, t->g->w / 2 - 75, t->g->h - 150);
-	return (0);
-}
-
-void	key_hook_helper(int key_code, t_map *map)
-{
-	if (key_code == 53)
-	{
-		printf("\033[0;33mYou closed the window!");
-		exit(0);
-	}
-	if (key_code == 124)
-		map->ang_direc = -4.0;
-	if (key_code == 123)
-		map->ang_direc = +4.0;
-	if (key_code == 13)
-	{
-		map->direc = 1;
-		map->y_direc = -1.0;
-		map->x_direc = 1.0;
-	}
 }
