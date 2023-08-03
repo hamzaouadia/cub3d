@@ -12,6 +12,18 @@
 
 #include "cub3D.h"
 
+void	ft_y_texture(t_map *t)
+{
+	if (t->side == 'e')
+		t->y_texture += t->ea_texture.height / t->wall;
+	if (t->side == 'w')
+		t->y_texture += t->we_texture.height / t->wall;
+	if (t->side == 'n')
+		t->y_texture += t->no_texture.height / t->wall;
+	if (t->side == 's')
+		t->y_texture += t->so_texture.height / t->wall;
+}
+
 char	get_player_direction(char **str)
 {
 	int	i;

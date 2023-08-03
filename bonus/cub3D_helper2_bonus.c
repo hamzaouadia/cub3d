@@ -101,6 +101,6 @@ void	render_helper4(t_map *t)
 	{
 		render_helper4_helper(t);
 		t->pix_y += 1.0;
-		t->y_texture += 500.0 / t->wall;
+		ft_y_texture(t);
 	}
 }

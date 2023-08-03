@@ -201,4 +201,5 @@ int					ft_check_radius(t_map *t, double player_x, double player_y);
 void				extraction(t_map *map, char **str, char alphabet);
 void				free_split(char **str);
 int					double_len(char **str);
+void				ft_y_texture(t_map *t);
 #endif

@@ -207,4 +207,5 @@ void				gun_textures(t_texture *gun, t_window *mlx);
 void				extraction(t_map *map, char **str, char alphabet);
 void				free_split(char **str);
 int					double_len(char **str);
+void				ft_y_texture(t_map *t);
 #endif
