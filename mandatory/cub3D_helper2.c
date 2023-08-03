@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D_helper2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haouadia <haouadia@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: smounafi <smounafi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 10:17:48 by haouadia          #+#    #+#             */
-/*   Updated: 2023/07/30 10:17:56 by haouadia         ###   ########.fr       */
+/*   Updated: 2023/08/01 17:50:40 by smounafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,9 @@ void	render_helper3(t_map *t)
 	{
 		t->x += cos((t->angle + t->player_ang) * PI_R);
 		if (t->real_map[(int)(t->y / t->g->block_size)][(int)(t->x
-				/ t->g->block_size)] == '1')
+				/ t->g->block_size)] == '1' ||
+					t->real_map[(int)(t->y / t->g->block_size)][(int)(t->x
+				/ t->g->block_size)] == ' ')
 		{
 			t->side = 'e';
 			t->x_texture = (((t->y / t->g->block_size) - (int)(t->y
@@ -52,7 +54,9 @@ void	render_helper3(t_map *t)
 		}
 		t->y += -sin((t->angle + t->player_ang) * PI_R);
 		if (t->real_map[(int)(t->y / t->g->block_size)][(int)(t->x
-				/ t->g->block_size)] == '1')
+				/ t->g->block_size)] == '1' ||
+					t->real_map[(int)(t->y / t->g->block_size)][(int)(t->x
+				/ t->g->block_size)] == ' ')
 		{
 			render_helper3_helper(t);
 			if (t->flag == 1)
@@ -97,6 +101,6 @@ void	render_helper4(t_map *t)
 	{
 		render_helper4_helper(t);
 		t->pix_y += 1.0;
-		t->y_texture += 500.0 / t->wall;
+		t->y_texture += t->we_texture.height / t->wall;
 	}
 }

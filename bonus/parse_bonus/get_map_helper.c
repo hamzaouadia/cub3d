@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   get_map_helper.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smounafi <smounafi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/18 18:45:05 by smounafi          #+#    #+#             */
-/*   Updated: 2023/08/01 17:37:47 by smounafi         ###   ########.fr       */
+/*   Created: 2023/08/01 17:40:54 by smounafi          #+#    #+#             */
+/*   Updated: 2023/08/03 09:47:00 by smounafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"libft.h"
+#include "../cub3D_bonus.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoinn(char *s1, char *s2)
 {
 	char	*p;
 	size_t	i;
@@ -37,5 +37,42 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		i++;
 	}
 	p[i] = '\0';
+	free(s1);
 	return (p);
+}
+
+int	highest_len(char **str)
+{
+	int	i;
+	int	len;
+	int	len2;
+
+	i = 1;
+	len = ft_strlenn(str[0]);
+	len2 = 0;
+	while (str[i])
+	{
+		if (ft_strlenn(str[i]) > len)
+			len2 = ft_strlenn(str[i]);
+		i++;
+	}
+	return (len2);
+}
+
+char	*add_space(int size)
+{
+	char	*s;
+	int		i;
+
+	i = 0;
+	if (size < 0)
+		return (NULL);
+	s = malloc(size + 1);
+	while (i < size)
+	{
+		s[i] = 32;
+		i++;
+	}
+	s[i] = '\0';
+	return (s);
 }

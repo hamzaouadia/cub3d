@@ -6,7 +6,7 @@
 /*   By: smounafi <smounafi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 12:49:54 by smounafi          #+#    #+#             */
-/*   Updated: 2023/07/28 17:16:27 by smounafi         ###   ########.fr       */
+/*   Updated: 2023/08/03 10:11:51 by smounafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,14 @@ void	check_map_walls(char **str)
 
 	i = 0;
 	j = 0;
+	if (!completed_wall(str[i]) || !completed_wall(str[double_len(str) - 1]))
+		errors(1);
 	while (str[i])
 	{
 		j = 0;
 		while (is_a_space(str[i][j]))
 			j++;
-		if (str[i][j] != '1' || str[i][ft_strlen(str[i]) - 1] != '1')
+		if (str[i][j] != '1')
 			errors(1);
 		i++;
 	}
@@ -64,10 +66,8 @@ void	check_map_textures(t_map *map)
 	if (map->utils.no > 1 || map->utils.we > 1 || map->utils.so > 1
 		|| map->utils.ea > 1 || map->utils.cc > 1 || map->utils.ff > 1)
 		errors(10);
-	if (open(map->no, O_RDONLY) < 0
-		|| open(map->so, O_RDONLY) < 0
-		|| open(map->ea, O_RDONLY) < 0
-		|| open(map->we, O_RDONLY) < 0)
+	if (open(map->no, O_RDONLY) < 0 || open(map->so, O_RDONLY) < 0
+		|| open(map->ea, O_RDONLY) < 0 || open(map->we, O_RDONLY) < 0)
 		errors(11);
 }
 
@@ -78,7 +78,7 @@ int	zero_index(char *str)
 	i = ft_strlenn(str);
 	while (i > 0)
 	{
-		if (str[i] == '0')
+		if (valid_start_pos(str[i]))
 			return (i);
 		i--;
 	}
@@ -94,16 +94,16 @@ void	check_map_content_help(char **str)
 	j = 0;
 	while (str[i])
 	{
-		if (str[i + 1] && (zero_index(str[i]) > ft_strlenn(str[i - 1])
-				|| zero_index(str[i]) > ft_strlenn(str[i + 1])))
+		if (str[i + 1] && (zero_index(str[i]) >= ft_strlenn(str[i - 1])
+				|| zero_index(str[i]) >= ft_strlenn(str[i + 1])))
 			errors(0);
 		j = 0;
 		while (str[i][j])
 		{
-			if (str[i][j] == '0')
+			if (valid_start_pos(str[i][j]))
 			{
-				if (str[i + 1][j] == 32 || str[i - 1][j] == 32 || str[i][j
-					+ 1] == 32 || str[i][j - 1] == 32)
+				if ((str[i + 1][j] == 32 || str[i - 1][j] == 32 || str[i][j
+					+ 1] == 32 || str[i][j - 1] == 32))
 					errors(0);
 			}
 			j++;

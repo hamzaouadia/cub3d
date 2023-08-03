@@ -6,7 +6,7 @@
 /*   By: smounafi <smounafi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 19:14:05 by smounafi          #+#    #+#             */
-/*   Updated: 2023/07/28 17:24:10 by smounafi         ###   ########.fr       */
+/*   Updated: 2023/08/03 09:44:29 by smounafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,32 @@ int	ft_strlenn(const char *s)
 	while (s && s[i])
 		i++;
 	return (i);
+}
+
+int	all_digits(char **str)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		j = 0;
+		while (str[i][j])
+		{
+			if (!ft_isdigit(str[i][j]))
+				return (1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
+int valid_start_pos(char c)
+{
+	if(c == '0' || c == 'N' || c == 'E' || c == 'S' || c == 'W')
+		return(1);
+	return(0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D_helper_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: haouadia <haouadia@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: smounafi <smounafi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 10:19:53 by haouadia          #+#    #+#             */
-/*   Updated: 2023/07/30 10:19:55 by haouadia         ###   ########.fr       */
+/*   Updated: 2023/07/30 13:57:33 by smounafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
 	char	*dst;
 
-	if (x < 1200 && y < 1000)
+	if (x < 1000 && y < 800)
 	{
 		dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel
 					/ 8));

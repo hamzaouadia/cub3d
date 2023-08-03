@@ -6,7 +6,7 @@
 /*   By: smounafi <smounafi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 15:21:46 by smounafi          #+#    #+#             */
-/*   Updated: 2023/07/29 18:03:32 by smounafi         ###   ########.fr       */
+/*   Updated: 2023/08/03 09:46:54 by smounafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,6 @@ char	*get_map(char *arg, int fd)
 
 char	*setup_map(char *str, t_map *map)
 {
-	int	i;
-
-	i = 0;
 	init_stuff(map);
 	if (!str || !str[0])
 		errors(8);

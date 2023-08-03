@@ -6,7 +6,7 @@
 /*   By: smounafi <smounafi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 11:23:04 by smounafi          #+#    #+#             */
-/*   Updated: 2023/07/30 11:23:05 by smounafi         ###   ########.fr       */
+/*   Updated: 2023/08/03 09:47:04 by smounafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,9 @@ void				north_south_textures(char *str, t_map *map);
 void				east_west_textures(char *str, t_map *map);
 void				east_west_textures(char *str, t_map *map);
 void				floor_ceiling_textures(char *str, t_map *map);
+int					dbl_size_each(char **str);
+int					all_digits(char **str);
+int 				valid_start_pos(char c);
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~ CONTENT ~~~~~~~~~~~~~~~~~~~~~~~*/
 
@@ -153,6 +156,14 @@ int					zero_index(char *str);
 int					ft_strlenn(const char *s);
 int					is_a_space(char c);
 void				check_map_content_help(char **str);
+int					completed_wall_bonus(char *str);
+int					comma_counter_bonus(char *str);
+int					only_spaces_bonus(char *str);
+void				check_texture_name(char *str);
+int					not_null_termin(char **str);
+char				*ft_strjoinn(char *s1, char *s2);
+int					highest_len(char **str);
+char				*add_space(int size);
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~ MAP ~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
@@ -195,4 +206,5 @@ void				ft_minimap(t_map *t);
 void				gun_textures(t_texture *gun, t_window *mlx);
 void				extraction(t_map *map, char **str, char alphabet);
 void				free_split(char **str);
+int					double_len(char **str);
 #endif

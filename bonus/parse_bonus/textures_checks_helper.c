@@ -6,7 +6,7 @@
 /*   By: smounafi <smounafi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 18:01:41 by smounafi          #+#    #+#             */
-/*   Updated: 2023/07/29 18:01:50 by smounafi         ###   ########.fr       */
+/*   Updated: 2023/07/30 18:41:10 by smounafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,32 @@ void	extraction(t_map *map, char **str, char alphabet)
 		map->utils.cc++;
 	}
 	map->utils.flag++;
+}
+
+int	double_len(char **str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
+void	check_texture_name(char *str)
+{
+	int		i;
+	char	*s;
+
+	i = 0;
+	i = ft_strlen(str);
+	s = ft_substr(str, i - 4, 4);
+	if (str)
+	{
+		if (ft_strncmp(s, ".xpm", 4))
+			errors(11);
+	}
+	else
+		errors(11);
+	free(s);
 }

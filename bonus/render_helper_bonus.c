@@ -30,7 +30,7 @@ void	ft_gun_animation(t_map *t)
 	mlx_put_image_to_window(t->g->mlx, t->g->win, t->gun[t->frame].data.img,
 		t->g->w / 2, t->g->h - 230);
 	if (t->shot == 1)
-		t->frame = (t->frame + 1) % 24;
+		t->frame += 1 % 24;
 	if (t->frame == 23)
 	{
 		t->frame = 0;

@@ -6,7 +6,7 @@
 /*   By: smounafi <smounafi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 15:22:29 by smounafi          #+#    #+#             */
-/*   Updated: 2023/07/29 18:02:48 by smounafi         ###   ########.fr       */
+/*   Updated: 2023/08/03 09:46:47 by smounafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,9 @@ void				north_south_textures(char *str, t_map *map);
 void				east_west_textures(char *str, t_map *map);
 void				east_west_textures(char *str, t_map *map);
 void				floor_ceiling_textures(char *str, t_map *map);
+void				check_texture_name(char *str);
+int					dbl_size_each(char **str);
+int					all_digits(char **str);
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~ CONTENT ~~~~~~~~~~~~~~~~~~~~~~~*/
 
@@ -150,6 +153,14 @@ int					zero_index(char *str);
 int					ft_strlenn(const char *s);
 int					is_a_space(char c);
 void				check_map_content_help(char **str);
+int					completed_wall(char *str);
+int					comma_counter(char *str);
+int					only_spaces(char *str);
+int					not_null_termin(char **str);
+char				*ft_strjoinn(char *s1, char *s2);
+int					highest_len(char **str);
+char				*add_space(int size);
+int 				valid_start_pos(char c);
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~ MAP ~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
@@ -189,4 +200,5 @@ void				key_hook_helper(int key_code, t_map *map);
 int					ft_check_radius(t_map *t, double player_x, double player_y);
 void				extraction(t_map *map, char **str, char alphabet);
 void				free_split(char **str);
+int					double_len(char **str);
 #endif

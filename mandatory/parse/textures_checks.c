@@ -6,7 +6,7 @@
 /*   By: smounafi <smounafi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 12:47:14 by smounafi          #+#    #+#             */
-/*   Updated: 2023/07/29 18:01:19 by smounafi         ###   ########.fr       */
+/*   Updated: 2023/08/01 18:48:27 by smounafi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,17 @@ char	*path_extracter(char *str)
 
 void	north_south_textures(char *str, t_map *map)
 {
-	if (ft_strncmp(str, NORTH_TEXTURE, 3) == 0 && map->utils.no == 0)
+	if (ft_strncmp(str, NORTH_TEXTURE, 3) == 0)
 	{
 		map->no = path_extracter(str);
+		check_texture_name(map->no);
 		map->utils.no++;
 		map->utils.flag++;
 	}
-	if (ft_strncmp(str, SOUTH_TEXTURE, 3) == 0 && map->utils.so == 0)
+	if (ft_strncmp(str, SOUTH_TEXTURE, 3) == 0)
 	{
 		map->so = path_extracter(str);
+		check_texture_name(map->so);
 		map->utils.so++;
 		map->utils.flag++;
 	}
@@ -56,12 +58,14 @@ void	east_west_textures(char *str, t_map *map)
 	if (ft_strncmp(str, WEST_TEXTURE, 3) == 0)
 	{
 		map->we = path_extracter(str);
+		check_texture_name(map->we);
 		map->utils.we++;
 		map->utils.flag++;
 	}
 	if (ft_strncmp(str, EAST_TEXTURE, 3) == 0)
 	{
 		map->ea = path_extracter(str);
+		check_texture_name(map->ea);
 		map->utils.ea++;
 		map->utils.flag++;
 	}
@@ -73,12 +77,22 @@ void	floor_ceiling_textures(char *str, t_map *map)
 	if (ft_strncmp(str, FLOOR, 2) == 0)
 	{
 		map->rgb = ft_split(map->p, ',');
+		if (ft_strncmp(map->rgb[0], "C", 1) == 0)
+			errors(11);
+		if (double_len(map->rgb) != 3 || comma_counter(map->p) != 2
+			|| not_null_termin(map->rgb) || dbl_size_each(map->rgb)
+			|| all_digits(map->rgb))
+			errors_help(0);
 		extraction(map, map->rgb, 'f');
 		free_split(map->rgb);
 	}
 	if (ft_strncmp(str, CEILLING, 2) == 0)
 	{
 		map->rgb = ft_split(map->p, ',');
+		if (double_len(map->rgb) != 3 || comma_counter(map->p) != 2
+			|| not_null_termin(map->rgb) || dbl_size_each(map->rgb)
+			|| all_digits(map->rgb))
+			errors_help(0);
 		extraction(map, map->rgb, 'c');
 		free_split(map->rgb);
 	}
